@@ -4,7 +4,7 @@
 <head>
 
   <meta charset=utf-8 />
-  <title>India Census - 2011</title>
+  <title>Vegetarianism in India</title>
 
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
@@ -19,8 +19,9 @@
             position: absolute;
             top:0;
             bottom:0;
-            width: 960px;
+            width: 1360px;
             height: 707px;
+            background-color: powderblue;
         }
 
 	    .map-legend i {
@@ -44,7 +45,7 @@
 
 	    	border: thin solid grey;
             background: black;
-            opacity: 1;
+            opacity: 0.85;
             text-align: center;
 	    }
 
@@ -85,16 +86,16 @@
 
 <body>
 
-<div class="census-banner">
+<!-- <div class="census-banner">
     <a href="http://www.census2011.co.in/" target="_blank">India Census - 2011</a>
-</div>
+</div> -->
 
-<nav id='capitals-filter-div' class='filter-ui'>
+<!-- <nav id='capitals-filter-div' class='filter-ui'>
     <div>
         <input type="checkbox" checked="checked" id="capitals-filter">
         <label for="capitals">Show Capitals</label>
     </div>
-</nav>
+</nav> -->
 
 <div id='map' class='map'> </div>
 
@@ -104,21 +105,21 @@
     <strong>Population: </strong>{{population}} <br>
     <strong>Area: </strong>{{area}} square kilometer <br>
     <strong>Density: {{density}}</strong> people per square kilometer <br>
-    <strong>Growth: </strong>{{growth}} % <br>
+    <!-- <strong>Growth: </strong>{{growth}} % <br> -->
 </script>
 
 <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script type="text/javascript" src="data/census-2011.js"></script>
+<script type="text/javascript" src="census-2011.js"></script>
 
 <script>
     L.mapbox.accessToken = 'pk.eyJ1IjoiaW5pdGRvdCIsImEiOiJ3VkkxTldvIn0.7UPZ8q9fgBE70dMV7e0sLw';
 
-    var map = L.mapbox.map('map', 'initdot.ljplbdcp').setView([21.836006, 87.824707], 5),
+    var map = L.mapbox.map('map', 'mapbox.light').setView([21.836006, 87.824707], 5),
         // color reference from color brewer
-        mapBrew = ['rgb(255,255,204)','rgb(217,240,163)','rgb(173,221,142)','rgb(120,198,121)','rgb(65,171,93)','rgb(35,132,67)','rgb(0,90,50)'],
+        mapBrew = ['rgb(122,122,122)','rgb(217,240,163)','rgb(173,221,142)','rgb(120,198,121)','rgb(65,171,93)','rgb(35,132,67)','rgb(0,90,50)'],
         // population density range used for choropleth and legend
-        mapRange = [ 5000, 1000, 800, 500, 300, 100, 0 ];
+        mapRange = [ 50, 40, 30, 20, 10, 0, -2];
 
     // map legend for population density
     var legend = L.mapbox.legendControl( { position: "bottomleft" } ).addLegend( getLegendHTML() ).addTo(map),
@@ -142,7 +143,7 @@
             opacity: 0.1,
             color: 'black',
             fillOpacity: 0.85,
-            fillColor: getDensityColor( indiaCensus.states[feature.properties.code].density )
+            fillColor: getDensityColor( indiaCensus.states[feature.properties.code].vegetarianism )
         };
     }
 
@@ -177,7 +178,7 @@
             area: indiaCensus.states[layer.feature.properties.code].area,
             growth: indiaCensus.states[layer.feature.properties.code].growth,
             population: indiaCensus.states[layer.feature.properties.code].population,
-            capital: indiaCensus.states[layer.feature.properties.code].capital.name
+            capital: indiaCensus.states[layer.feature.properties.code].capital.name,
         };
 
         popup.setLatLng(e.latlng);
@@ -230,13 +231,13 @@
                 from + (to ? '&ndash;' + to : '+'));
         }
 
-        return '<span>People per square km</span><br>' + labels.join('<br>');
+        return '<span>Percentage of<br> vegetarianism</span><br>' + labels.join('<br>');
     }
 
     // ref: https://www.mapbox.com/mapbox.js/api/v2.1.6/l-icontrol/
 	var PieGraphControl = L.Control.extend({
         options: {
-			position: 'topright'
+			position: 'bottomright'
 		},
 
 		onAdd: function (map) {
@@ -261,15 +262,17 @@
     });
 
     // add the piegraph and bar graph container
-	map.addControl( new PieGraphControl() )
-        .addControl( new BarGraphControl() );
+	map.addControl( new PieGraphControl()
+// )
+//         .addControl( new BarGraphControl()
+      );
 
     // START: Pie Graph
     var width = 250,
         height = 150,
         pieColors = {
-            male: "steelblue",
-            female: "pink"
+            male: "green",
+            female: "red"
         };
 
     var pieName = d3.select(".pie-graph")
@@ -297,16 +300,16 @@
             .style("background", pieColors.female)
             .style("padding", "5px")
             .style("color", "black")
-            .text("Female");
+            .text("Non-Vegetarians");
 
     pieLegend.append("i")
             .style("background", pieColors.male)
             .style("padding", "5px")
             .style("color", "black")
-            .text("Male");
+            .text("Vegetarians");
 
     pieLegend.append("div")
-                .html("<strong>Sex Ratio: </strong>Females for every 1000 Males")
+                .html("<strong>Vegetarianism ratio:")
                 .style("color", "white")
                 .style("margin-top", "5px");
 
@@ -409,8 +412,8 @@
         // Update Pie Graph
         pieData = [];
 
-        pieData.push( { type: "male", ratio: 1000, color: pieColors.male } );
-        pieData.push( { type: "female", ratio: graphData.sexratio, color: pieColors.female } );
+        pieData.push( { type: "male", ratio: Math.round(100*100 - graphData.vegetarianism*100)/100, color: pieColors.male } );
+        pieData.push( { type: "female", ratio: Math.round(graphData.vegetarianism*100)/100, color: pieColors.female } );
 
         // update pie
         var pieUpdate = pieSvg.selectAll(".pie-piece")
