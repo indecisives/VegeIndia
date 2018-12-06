@@ -19,11 +19,15 @@
             position: absolute;
             top:0;
             bottom:0;
-            width: 1360px;
-            height: 707px;
+            width: 100%;
+            height: 96%;
             background-color: powderblue;
         }
-
+      .credit {
+        position: absolute;
+        bottom: 0;
+        background-color: powderblue;
+      }
 	    .map-legend i {
 	        width: 18px;
 	        height: 18px;
@@ -81,7 +85,6 @@
         }
 
 	</style>
-
 </head>
 
 <body>
@@ -97,7 +100,9 @@
     </div>
 </nav> -->
 
-<div id='map' class='map'> </div>
+<div id='map' class='map'></div>
+
+<div id='credit', class='credit'>dfghj</div>
 
 <script id="popup-template" type="text/template">
     <h2>{{state}}</h2>
@@ -222,7 +227,10 @@
         // color reference from color brewer
         var brew = mapBrew;
 
-        for (var i = 0; i < grades.length; i++) {
+        labels.push(
+            '<i style="background:' + brew[0] + '"></i> no data');
+
+        for (var i = 1; i < grades.length; i++) {
             from = grades[i];
             to = grades[i + 1];
 
@@ -272,7 +280,8 @@
         height = 150,
         pieColors = {
             male: "green",
-            female: "red"
+            female: "red",
+            black: "blue"
         };
 
     var pieName = d3.select(".pie-graph")
@@ -308,10 +317,16 @@
             .style("color", "black")
             .text("Vegetarians");
 
-    pieLegend.append("div")
-                .html("<strong>Vegetarianism ratio:")
-                .style("color", "white")
-                .style("margin-top", "5px");
+    // pieLegend.append("i")
+    //         .style("background", pieColors.black)
+    //         .style("padding", "5px")
+    //         .style("color", "white")
+    //         .text("Vegetarians");
+
+    // pieLegend.append("div")
+    //             .html("<strong>Vegetarianism ratio:")
+    //             .style("color", "white")
+    //             .style("margin-top", "5px");
 
 	var pieRadius = 60;
 
@@ -322,8 +337,8 @@
     var pieData = [];
 
     // initial data for Delhi
-    pieData.push( { type: "male", ratio: 1000, color: pieColors.male } );
-    pieData.push( { type: "female", ratio: 868, color: pieColors.female } );
+    pieData.push( { type: "male", ratio: 60.5, color: pieColors.male } );
+    pieData.push( { type: "female", ratio: 39.5, color: pieColors.female } );
 
     var pie = d3.layout.pie()
                 .sort(null)
@@ -411,9 +426,22 @@
     function updateGraph ( graphData ) {
         // Update Pie Graph
         pieData = [];
+        //
+        var ratio = graphData.vegetarianism;
+        if (ratio != 0) {
+          pieData.push( { type: "male", ratio: Math.round(100*100 - ratio*100)/100, color: pieColors.male } );
+          pieData.push( { type: "female", ratio: Math.round(ratio*100)/100, color: pieColors.female } );
 
-        pieData.push( { type: "male", ratio: Math.round(100*100 - graphData.vegetarianism*100)/100, color: pieColors.male } );
-        pieData.push( { type: "female", ratio: Math.round(graphData.vegetarianism*100)/100, color: pieColors.female } );
+          // pieData.push( { type: "female", ratio: Math.round(graphData.vegetarianism*100)/100, color: pieColors.black } );
+        } else {
+          // pieData({})
+          pieData.push( { type: "black", ratio: 0, color: pieColors.black } );
+          pieData.push( { type: "male", ratio: 0, color: pieColors.male } );
+          pieData.push( { type: "female", ratio: 100, color: pieColors.female } );
+
+
+        }
+
 
         // update pie
         var pieUpdate = pieSvg.selectAll(".pie-piece")

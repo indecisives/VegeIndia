@@ -528,7 +528,7 @@ var stateCensus = {
 		"density": 123,
 		"sexratio": 972,
 		"literacy": 82.80,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -553,7 +553,7 @@ var stateCensus = {
 		"density": 350,
 		"sexratio": 960,
 		"literacy": 87.22,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -578,7 +578,7 @@ var stateCensus = {
 		"density": 132,
 		"sexratio": 989,
 		"literacy": 74.43,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -603,7 +603,7 @@ var stateCensus = {
 		"density": 115,
 		"sexratio": 992,
 		"literacy": 79.21,
-		"vegetarianism":-1
+		"vegetarianism": 0
 
 	},
 
@@ -625,7 +625,7 @@ var stateCensus = {
 		"density": 119,
 		"sexratio": 931,
 		"literacy": 79.55,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -647,7 +647,7 @@ var stateCensus = {
 		"density": 394,
 		"sexratio": 973,
 		"literacy": 88.70,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -669,7 +669,7 @@ var stateCensus = {
 		"density": 17,
 		"sexratio": 938,
 		"literacy": 65.38,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -694,7 +694,7 @@ var stateCensus = {
 		"density": 2547,
 		"sexratio": 1037,
 		"literacy": 85.85,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -719,7 +719,7 @@ var stateCensus = {
 		"density": 52,
 		"sexratio": 976,
 		"literacy": 91.33,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -744,7 +744,7 @@ var stateCensus = {
 		"density": 9258,
 		"sexratio": 818,
 		"literacy": 86.05,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -766,7 +766,7 @@ var stateCensus = {
 		"density": 86,
 		"sexratio": 890,
 		"literacy": 81.42,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -791,7 +791,7 @@ var stateCensus = {
 		"density": 46,
 		"sexratio": 876,
 		"literacy": 86.63,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	},
 
@@ -856,7 +856,7 @@ var stateCensus = {
 		"density": 2149,
 		"sexratio": 946,
 		"literacy": 91.85,
-		"vegetarianism": -1
+		"vegetarianism": 0
 
 	}
 
