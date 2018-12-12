@@ -447,8 +447,8 @@
         //
         var ratio = graphData.vegetarianism;
         if (ratio != 0) {
-          pieData.push( { type: "male", ratio: Math.round(100*100 - ratio*100)/100, color: pieColors.male } );
-          pieData.push( { type: "female", ratio: Math.round(ratio*100)/100, color: pieColors.female } );
+          pieData.push( { type: "male", ratio: Math.round(ratio*100)/100, color: pieColors.male } );
+          pieData.push( { type: "female", ratio: Math.round(100*100 - ratio*100)/100, color: pieColors.female } );
 
           // pieData.push( { type: "female", ratio: Math.round(graphData.vegetarianism*100)/100, color: pieColors.black } );
         } else {
